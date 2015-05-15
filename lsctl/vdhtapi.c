@@ -12,7 +12,7 @@
 #include "vnodeId.h"
 #include "vlsctlc.h"
 
-__thread int verrno = 0;
+//__thread int verrno = 0;
 
 #define BUF_SZ ((int)1024)
 enum {
@@ -50,23 +50,23 @@ int vdhtc_hash(uint8_t* msg, int len, vsrvcHash* hash)
     int ret = 0;
 
     if (!msg || len <= 0) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     if (!hash) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
     ret = vhashgen_init(&hashgen);
     if (ret < 0) {
-        verrno = verr_outof_mem;
+        errno = verr_outof_mem;
         return -1;
     }
     ret = hashgen.ops->hash(&hashgen, msg, len, hash);
     vhashgen_deinit(&hashgen);
     if (ret < 0) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     return 0;
@@ -78,27 +78,27 @@ int vdhtc_hash_with_cookie(uint8_t* msg, int len, uint8_t* cookie, int cookie_le
     int ret = 0;
 
     if (!msg || len <= 0) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     if (!cookie || cookie_len <= 0) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     if (!hash) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
     ret = vhashgen_init(&hashgen);
     if (ret < 0) {
-        verrno = verr_outof_mem;
+        errno = verr_outof_mem;
         return -1;
     }
     ret = hashgen.ops->hash_with_cookie(&hashgen, msg, len, cookie, cookie_len, hash);
     vhashgen_deinit(&hashgen);
     if (ret < 0) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     return 0;
@@ -107,15 +107,15 @@ int vdhtc_hash_with_cookie(uint8_t* msg, int len, uint8_t* cookie, int cookie_le
 int vdhtc_init(const char* client_socket, const char* lsctl_socket)
 {
     if (!client_socket && !lsctl_socket) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     if (client_socket && (strlen(client_socket) + 1 >= BUF_SZ)){
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     if (lsctl_socket && (strlen(lsctl_socket) + 1 >= BUF_SZ)){
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -379,7 +379,7 @@ int vdhtc_join_wellknown_node(struct sockaddr_in* addr)
     int ret = 0;
 
     if (!addr) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -415,7 +415,7 @@ int vdhtc_request_bogus_ping (struct sockaddr_in* addr)
     int ret = 0;
 
     if (!addr) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -452,7 +452,7 @@ int vdhtc_post_service_segment(vsrvcHash* srvcHash, struct sockaddr_in* addr)
     int ret = 0;
 
     if (!srvcHash || !addr) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -490,7 +490,7 @@ int vdhtc_unpost_service_segment(vsrvcHash* srvcHash, struct sockaddr_in* addr)
     int ret = 0;
 
     if (!srvcHash || !addr) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     ret = vlsctlc_init(&lsctlc);
@@ -528,11 +528,11 @@ int vdhtc_post_service(vsrvcHash* srvcHash, struct sockaddr_in* addrs, int num)
     int i = 0;
 
     if (!srvcHash) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
     if (!addrs || num <= 0) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -574,7 +574,7 @@ int vdhtc_unpost_service(vsrvcHash* srvcHash)
     int ret = 0;
 
     if (!srvcHash) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -615,7 +615,7 @@ int vdhtc_find_service(vsrvcHash* srvcHash, vsrvcInfo_number_addr_t ncb, vsrvcIn
     int i = 0;
 
     if (!srvcHash || !ncb || !icb) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 
@@ -668,7 +668,7 @@ int vdhtc_probe_service(vsrvcHash* srvcHash, vsrvcInfo_number_addr_t ncb, vsrvcI
     int i = 0;
 
     if (!srvcHash || !ncb || !icb) {
-        verrno = verr_bad_args;
+        errno = verr_bad_args;
         return -1;
     }
 

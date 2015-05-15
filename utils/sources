@@ -1,0 +1,19 @@
+TARGET_NAME = libutils
+TARGET_TYPE = lib
+
+EXPORT_ALL_SYMBOLS=1
+
+#include $(MAKEDIR)/../../../sources.inc
+
+INCLUDES += $(MAKEDIR)
+INCLUDES += $(MAKEDIR)/..
+INCLUDES += $(MAKEDIR)/../utils
+INCLUDES += $(MAKEDIR)/../lsctl
+INCLUDES += $(MAKEDIR)/../3rdparties/miniupnpc
+
+C_FLAGS += -g -Wall -std=gnu99 -D_GNU_SOURCE
+
+#IMPORTS = Elastos.Core.eco
+
+SOURCES = varray.c vdict.c vhashmap.c vmem.c vmisc.c vsys.c
+

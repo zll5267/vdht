@@ -1,0 +1,5 @@
+add the folders client/server vdhtd/vlsctlc for the executable file generation.
+
+vdhtd/vlsctlc should be generated manually(depend on high level files).
+
+under these folders, there is a symbolic link to the real source file of executable file.

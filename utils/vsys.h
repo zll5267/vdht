@@ -15,7 +15,11 @@ struct vlock {
     pthread_mutexattr_t  attr;
 };
 
+#if defined(ELASTOS)
+#define VLOCK_RECURSIVE_INITIALIZER {.mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER }
+#else
 #define VLOCK_RECURSIVE_INITIALIZER {.mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP }
+#endif
 
 extern int  vlock_init  (struct vlock*);
 extern int  vlock_enter (struct vlock*);

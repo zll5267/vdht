@@ -16,6 +16,7 @@
 #include <netinet/if_ether.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "vdhtapi.h"
 
 static char* gserver_magic = "server.example.201503140506abcdefg";

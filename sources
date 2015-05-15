@@ -1,0 +1,28 @@
+TARGET_NAME = libvdht
+TARGET_TYPE = lib
+
+EXPORT_ALL_SYMBOLS=1
+
+#include $(MAKEDIR)/../../../sources.inc
+
+INCLUDES += $(MAKEDIR)
+INCLUDES += $(MAKEDIR)/utils
+INCLUDES += $(MAKEDIR)/lsctl
+INCLUDES += $(MAKEDIR)/3rdparties/miniupnpc
+
+C_FLAGS += -g -Wall -std=gnu99 -D_GNU_SOURCE
+
+# APIVERSION is used to build SONAME
+
+#IMPORTS = Elastos.Core.eco
+
+SOURCES = vlog.c vcfg.c vapp.c vrpc.c vdht.c \
+          vdht_core.c vhost.c vnode.c vnode_nice.c \
+          vmsger.c vupnpc.c vlsctl.c vticker.c \
+          vnodeId.c vroute.c vroute_node.c vroute_srvc.c \
+          vroute_recr.c vroute_helper.c
+
+#LINK_FLAGS += -L$(PREBUILD_LIB)
+
+LIBRARIES += utils/libutils.lib
+

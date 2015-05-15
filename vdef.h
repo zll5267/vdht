@@ -30,7 +30,7 @@
 /*
  *
  */
-#define _DEBUG
+//#define _DEBUG controled by compile flags
 #ifdef _DEBUG
 #define vassert(cond) do { \
             if (!(cond)) { \

@@ -1,8 +1,9 @@
 1. The referenece website of minupnpc source:
-	http://miniupnp.tuxfamily.org/files/
+    http://miniupnp.tuxfamily.org/files/
    currently miniupnpc-1.9.tar.gz is used for vdhtd-0.0.1.0 version.
 
 2. Download the source code and untar it, and execute following commands:
-	make
+    make
         make install
+3. For the elastos folder to the root path of the source code, and run emake
 

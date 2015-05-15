@@ -1,0 +1,45 @@
+TARGET_NAME = libminiupnpc
+TARGET_TYPE = so
+
+EXPORT_ALL_SYMBOLS=1
+
+#include $(MAKEDIR)/../../../sources.inc
+
+INCLUDES += $(MAKEDIR)
+
+#C_DEFINES += -DDROID_CORE
+
+#CAR_FLAGS += -u
+#LUBE_FLAGS += -n -u
+C_FLAGS += -DELASTOS
+C_FLAGS += -O
+C_FLAGS += -Wall
+C_FLAGS += -W -Wstrict-prototypes
+C_FLAGS += -fno-common
+C_FLAGS += -DMINIUPNPC_SET_SOCKET_TIMEOUT
+C_FLAGS += -DMINIUPNPC_GET_SRC_ADDR
+C_FLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE=1
+#C_FLAGS += -ansi
+
+# APIVERSION is used to build SONAME
+APIVERSION = 10
+SHAREDLIBRARY = $(TARGET_NAME)$(TARGET_TYPE)
+SONAME = $(SHAREDLIBRARY).$(APIVERSION)
+
+#IMPORTS = Elastos.Core.eco
+
+SOURCES = miniwget.c minixml.c igd_desc_parse.c minisoap.c \
+          miniupnpc.c upnpreplyparse.c upnpcommands.c upnperrors.c \
+          connecthostport.c portlistingparse.c receivedata.c
+
+
+
+LINK_FLAGS += -L$(PREBUILD_LIB)
+LINK_FLAGS += -Wl,-soname,$(SONAME)
+
+#LIBRARIES += $(XDK_USER_LIB)/Elastos.Runtime.lib
+#LIBRARIES += $(XDK_USER_LIB)/Elastos.Core.lib
+#LIBRARIES += graphics/graphics.lib
+#LIBRARIES += content/content.lib
+#LIBRARIES += os/os.lib
+
